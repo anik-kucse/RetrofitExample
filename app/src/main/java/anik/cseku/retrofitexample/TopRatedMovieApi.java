@@ -12,6 +12,6 @@ public interface TopRatedMovieApi {
     Call<TopRatedMovies> getMovie(
             @Query("api_key") String apiKey,
             @Query("language") String language,
-            @Query("pages") int pageIndex
+            @Query("page") int pageIndex
     );
 }
