@@ -9,25 +9,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
 
             <TextView
-                android:id="@+id/user_id"
-                android:textColor="#FFF"
-                android:layout_width="wrap_content"
+                android:id="@+id/movie_ratings"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="User ID: 1"
-                android:layout_margin="10dp"/>
+                android:text="Ratings"
+                android:gravity="center"
+                android:textColor="#FFF"/>
 
             <TextView
-                android:textColor="#FFF"
-                android:id="@+id/post_id"
-                android:layout_width="wrap_content"
+                android:id="@+id/movie_release_date"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ID: 1"
-                android:layout_margin="10dp"/>
+                android:text="date"
+                android:gravity="center"
+                android:textColor="#F0EAEA"/>
+
 
         </LinearLayout>
         <View
@@ -42,7 +44,7 @@
             android:background="@color/colorPrimaryLight">
 
             <TextView
-                android:id="@+id/name"
+                android:id="@+id/movie_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -54,16 +56,14 @@
                 android:layout_height="1dp"
                 android:background="#FFF"/>
             <TextView
-                android:id="@+id/body_text"
+                android:id="@+id/movie_overview"
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Body: sunt aut facere repellat providen quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto"/>
-
         </LinearLayout>
-
     </LinearLayout>
-
+    
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

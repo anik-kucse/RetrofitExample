@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -14,11 +15,11 @@ import java.util.zip.Inflater;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
     Context context;
-    List<Post> post;
+    List<Result> movieResult;
 
     public RecyclerViewAdapter(Context context) {
         this.context = context;
-        this.post = new ArrayList<>();
+        this.movieResult = new ArrayList<>();
     }
 
     @NonNull
@@ -34,31 +35,36 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        myViewHolder.userId.setText("User ID: " + post.get(i).getUserId());
-        myViewHolder.id.setText("Post ID: " + post.get(i).getId());
-        myViewHolder.name.setText(post.get(i).getName());
-        myViewHolder.bodyText.setText(post.get(i).getBodyText());
+
+        Result result = movieResult.get(i);
+
+
+        myViewHolder.rating.setText("Ratings: " + result.getVoteAverage() );
+        myViewHolder.releaseDate.setText("Release Date: " + result.getReleaseDate());
+        myViewHolder.name.setText(result.getTitle());
+        myViewHolder.overview.setText(result.getOverview());
     }
 
     @Override
     public int getItemCount() {
-        return post.size();
+        return movieResult.size();
     }
 
-    public void addPost(List<Post> post){
-        this.post.addAll(post);
+    public void addAll(List<Result> moveResults) {
+        movieResult.addAll(moveResults);
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
 
-        TextView userId, id, name, bodyText;
+        TextView rating, releaseDate, name, overview;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            userId = itemView.findViewById(R.id.user_id);
-            id = itemView.findViewById(R.id.post_id);
-            name = itemView.findViewById(R.id.name);
-            bodyText = itemView.findViewById(R.id.body_text);
+
+            rating = itemView.findViewById(R.id.movie_ratings);
+            releaseDate = itemView.findViewById(R.id.movie_release_date);
+            name = itemView.findViewById(R.id.movie_name);
+            overview = itemView.findViewById(R.id.movie_overview);
         }
     }
 }

@@ -18,7 +18,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-//    TextView textView;
     RecyclerViewAdapter recyclerViewAdapter;
     RecyclerView recyclerView;
 
@@ -27,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        textView = findViewById(R.id.error_msg);
-
         recyclerView = findViewById(R.id.recycler_view);
         recyclerViewAdapter = new RecyclerViewAdapter(this);
         recyclerView.setAdapter(recyclerViewAdapter);
@@ -36,50 +33,36 @@ public class MainActivity extends AppCompatActivity {
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://jsonplaceholder.typicode.com")
+                .baseUrl("https://api.themoviedb.org/3/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        PlaceHolderAPI placeHolderAPI = retrofit.create(PlaceHolderAPI.class);
-        final Call<List<Post>> posts = placeHolderAPI.getAllPosts();
+        TopRatedMovieApi topRatedMovieApi = retrofit.create(TopRatedMovieApi.class);
+
+        final Call<TopRatedMovies> topRatedMovie = topRatedMovieApi.getMovie(
+                "705668a7ad98acfa9ff4c202baa895fe",
+                "en_US",
+                1);
+
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                try {
-                    Response<List<Post>> execute = posts.execute();
-                    recyclerViewAdapter.addPost(execute.body());
+                try{
+                    Response<TopRatedMovies> execute = topRatedMovie.execute();
+                    TopRatedMovies topRatedMovies = execute.body();
+                    List<Result> results = topRatedMovies.getResults();;
+
+                    recyclerViewAdapter.addAll(results);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             recyclerViewAdapter.notifyDataSetChanged();
                         }
                     });
-                } catch (IOException e) {
+                }catch (IOException e){
                     e.printStackTrace();
                 }
             }
         });
-//        posts.enqueue(new Callback<List<Post>>() {
-//            @Override
-//            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-//                if(!response.isSuccessful()){
-//                    textView.setText("Error code:" + response.code());
-//                    return;
-//                }
-//
-//                recyclerViewAdapter.addPost(response.body());
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        recyclerViewAdapter.notifyDataSetChanged();
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Post>> call, Throwable t) {
-//                textView.setText(t.getMessage());
-//            }
-//        });
     }
 }
